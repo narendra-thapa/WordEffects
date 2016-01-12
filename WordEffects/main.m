@@ -21,14 +21,14 @@ void lowercase(NSString *inputString) {
 
 //  Function to return concatenated string
 void canadianize(NSString *inputString) {
-    NSString *editInput = [inputString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    NSLog(@"Canadianized string: %@", [editInput stringByAppendingString:@", eh?"]);
+    NSString *concatenatedString = [inputString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSLog(@"Canadianized string: %@", [concatenatedString stringByAppendingString:@", eh?"]);
 }
 
 //  Function to return string where space is replaced by hyphen '-'
 void deSpace(NSString *inputString) {
-    NSString *workInput = [inputString stringByReplacingOccurrencesOfString:@" " withString:@"-"];
-    NSLog(@"DeSpaced string: %@", workInput);
+    NSString *hyphenForSpaceString = [inputString stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+    NSLog(@"DeSpaced string: %@", hyphenForSpaceString);
 }
 
 // Function to return string after converting to integer is possible
@@ -61,11 +61,11 @@ void respond(NSString *inputString) {
     NSLog(@"Length of string %lu", (unsigned long)length);
     
     // Using above value to extract the last character
-    NSString *lastcharacter = [inputString substringFromIndex:length-1];
+    NSString *lastCharacter = [inputString substringFromIndex:length-1];
 
-    if ([lastcharacter isEqualToString:@"?\n"]) {
+    if ([lastCharacter isEqualToString:@"?\n"]) {
         NSLog(@"I don't know");
-    } else if ([lastcharacter isEqualToString:@"!\n"]) {
+    } else if ([lastCharacter isEqualToString:@"!\n"]) {
         NSLog(@"Whoa, calm down!");
     }
 }
@@ -95,7 +95,6 @@ int main(int argc, const char * argv[]) {
         NSLog(@"Thanks for using the program");
         EXIT_SUCCESS;
     }
-        
         // Asks user for string in case option 1-6 is choosen
     else if (selectionNum >= 1 && selectionNum <= 6)  {
     
@@ -103,27 +102,27 @@ int main(int argc, const char * argv[]) {
                 char inputChars[255];
                 NSLog(@"Enter your string: \n");
                 fgets(inputChars, 255, stdin);
-                NSString *objname = [NSString stringWithUTF8String:inputChars];
+                NSString *inputString = [NSString stringWithUTF8String:inputChars];
     
                 // Appropriate function is called as per user preference
                 switch (num)    {
                     case 1:
-                        uppercase(objname);
+                        uppercase(inputString);
                         break;
                     case 2:
-                        lowercase(objname);
+                        lowercase(inputString);
                         break;
                     case 3:
-                        canadianize(objname);
+                        canadianize(inputString);
                         break;
                     case 4:
-                        deSpace(objname);
+                        deSpace(inputString);
                         break;
                     case 5:
-                        respond(objname);
+                        respond(inputString);
                         break;
                     case 6:
-                        numberize(objname);
+                        numberize(inputString);
                         break;
                     default:
                         break;
