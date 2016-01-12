@@ -34,7 +34,18 @@ void deSpace(NSString *inputString) {
 // Function for word count
 void wordCount(NSString *inputString){
     NSUInteger spaceCount = [[inputString componentsSeparatedByString:@" "] count];
-    NSLog(@"Number of words in the string (assuming there are no consecutive blank spaces): %lu", (spaceCount - 1));
+    if (spaceCount == 0){
+        NSLog(@"Number of words in the string: %lu", (spaceCount + 1));
+    } else {
+        NSLog(@"Number of words in the string (assuming there are no consecutive blank spaces): %lu", spaceCount);
+    }
+}
+
+// Function for punctuation removal
+void punctuationRemoval(NSString *inputString){
+    NSCharacterSet *removalCharacters =  [NSCharacterSet characterSetWithCharactersInString:@"~!@#$%^&*()_+{}|:<>?`-=[];',./"];
+    NSString *punctuationRemovedString = [[inputString componentsSeparatedByCharactersInSet:removalCharacters] componentsJoinedByString:@""];
+    NSLog(@"String after removing punctuation marks %@", punctuationRemovedString);
 }
 
 // Function to return string after converting to integer is possible
@@ -79,29 +90,30 @@ void respond(NSString *inputString) {
 // Program asks user for input string and action to be performed on the string
 int main(int argc, const char * argv[]) {
     
-    NSUInteger selectionNum = 123;
+    NSUInteger selectionNum = 0;
     
     // While loop checks for user option and exits when choosen
-    while (selectionNum != 0) {
+    while (selectionNum != 9) {
         
     // Asking user for action choice
     char inputChoice[255];
-    NSLog(@"\nUppercase: 1\nLowercase: 2\nCanadianize: 3\nDeSpace: 4\nRespond: 5\nNumberize: 6\nWord Count: 7\nExit: 0\nPlease enter you choice (1-7): ");
+    NSLog(@"\nUppercase: 1\nLowercase: 2\nCanadianize: 3\nDeSpace: 4\nRespond: 5\nNumberize: 6\nWord Count: 7\nPunctuation Removal: 8\nExit: 9\nPlease enter you choice (0-8): ");
     fgets(inputChoice, 255, stdin);
     NSString *inputNum = [NSString stringWithUTF8String:inputChoice];
         
     // Converting user input to integer
     NSUInteger num = [inputNum intValue];
     selectionNum = num;
+        NSLog(@"%lu", (unsigned long)num);
         
-    if (selectionNum == 0) {
+    if (selectionNum == 9) {
         
         // Exits program is user chooses to exit
         NSLog(@"Thanks for using the program");
         EXIT_SUCCESS;
     }
         // Asks user for string in case option 1-6 is choosen
-    else if (selectionNum >= 1 && selectionNum <= 7)
+    else if (selectionNum >= 1 && selectionNum <= 8)
             {
                 // Asking user for input string
                 char inputChars[255];
@@ -132,14 +144,16 @@ int main(int argc, const char * argv[]) {
                     case 7:
                         wordCount(inputString);
                         break;
+                    case 8:
+                        punctuationRemoval(inputString);
+                        break;
                     default:
                         break;
                                 }
             }
     else {
-            // If user inputs something other than 1-7
+            // If user inputs something other than 1-8
             NSLog(@"Invalid Option.");
-            EXIT_SUCCESS;
         }
     }
     return 0;
