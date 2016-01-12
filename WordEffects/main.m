@@ -31,6 +31,12 @@ void deSpace(NSString *inputString) {
     NSLog(@"DeSpaced string: %@", hyphenForSpaceString);
 }
 
+// Function for word count
+void wordCount(NSString *inputString){
+    NSUInteger spaceCount = [[inputString componentsSeparatedByString:@" "] count];
+    NSLog(@"Number of words in the string (assuming there are no consecutive blank spaces): %lu", (spaceCount - 1));
+}
+
 // Function to return string after converting to integer is possible
 void numberize(NSString *inputString) {
     NSUInteger num = [inputString intValue];
@@ -73,31 +79,30 @@ void respond(NSString *inputString) {
 // Program asks user for input string and action to be performed on the string
 int main(int argc, const char * argv[]) {
     
-    NSUInteger selectionNum = 0;
+    NSUInteger selectionNum = 123;
     
     // While loop checks for user option and exits when choosen
-    while (selectionNum != 7) {
+    while (selectionNum != 0) {
         
     // Asking user for action choice
     char inputChoice[255];
-    NSLog(@"\nUppercase: 1\nLowercase: 2\nCanadianize: 3\nDeSpace: 4\nRespond: 5\nNumberize: 6\nExit: 7\nPlease enter you choice (1-7): ");
+    NSLog(@"\nUppercase: 1\nLowercase: 2\nCanadianize: 3\nDeSpace: 4\nRespond: 5\nNumberize: 6\nWord Count: 7\nExit: 0\nPlease enter you choice (1-7): ");
     fgets(inputChoice, 255, stdin);
-   
     NSString *inputNum = [NSString stringWithUTF8String:inputChoice];
         
     // Converting user input to integer
     NSUInteger num = [inputNum intValue];
     selectionNum = num;
         
-    if (selectionNum == 7) {
+    if (selectionNum == 0) {
         
         // Exits program is user chooses to exit
         NSLog(@"Thanks for using the program");
         EXIT_SUCCESS;
     }
         // Asks user for string in case option 1-6 is choosen
-    else if (selectionNum >= 1 && selectionNum <= 6)  {
-    
+    else if (selectionNum >= 1 && selectionNum <= 7)
+            {
                 // Asking user for input string
                 char inputChars[255];
                 NSLog(@"Enter your string: \n");
@@ -124,13 +129,14 @@ int main(int argc, const char * argv[]) {
                     case 6:
                         numberize(inputString);
                         break;
+                    case 7:
+                        wordCount(inputString);
+                        break;
                     default:
                         break;
-                    }
-        }
-    
+                                }
+            }
     else {
-            
             // If user inputs something other than 1-7
             NSLog(@"Invalid Option.");
             EXIT_SUCCESS;
